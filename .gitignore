@@ -1,5 +1,5 @@
 youtube-update/.env
 youtube-update/.deta/
 youtube-update/node_modules/
-youtube-update/credentials
+youtube-update/credentials/
 youtube-update/client_secret.json
