@@ -12,7 +12,6 @@
     "deta": "0.0.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "google-auth-library": "^6.0.5",
     "googleapis": "^54.1.0"
   }
 }
