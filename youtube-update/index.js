@@ -2,8 +2,11 @@ const fs = require('fs');
 const express = require('express')
 const readline = require('readline')
 const { google } = require('googleapis')
+const { App } = require("deta")
+const express = require('express')
 
-const app = express()
+const app = App(express())
+
 require('dotenv').config()
 
 var OAuth2 = google.auth.OAuth2;
@@ -11,9 +14,6 @@ var OAuth2 = google.auth.OAuth2;
 var SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl'];
 var TOKEN_DIR = __dirname + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'youtube_nodejs.json';
-
-
-
 
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     if (err) {
@@ -80,7 +80,7 @@ function storeToken(token) {
 }
 
 function getChannel(auth) {
-    var youtube = google.youtube('v3');
+    const youtube = google.youtube('v3');
     youtube.videos.list({
       auth: auth,
       id: process.env.video_id,
@@ -96,7 +96,7 @@ function getChannel(auth) {
         const { viewCount } = video.statistics
         console.log(viewCount)
 
-        const newTitle = `This video has got ${3} views!`
+        const newTitle = `This video has got ${viewCount} views!`
         console.log(newTitle)
 
         video.snippet.title = newTitle
@@ -109,7 +109,7 @@ function getChannel(auth) {
                 id: process.env.video_id,
                 snippet : {
                     "title": newTitle,
-                    "categoryId": "27"
+                    "categoryId": process.env.category_id
                 }
                }
             },
@@ -127,32 +127,6 @@ function getChannel(auth) {
       }
     })
 }
-
-  
-// const makeAuthCall = (auth) => {
-//     youtube.videos.list(
-//       {
-//         auth: auth,
-//         id: 'E3ngQLHRGKs',
-//         part: "id,snippet,statistics",
-//       },
-//       (err, response) => {
-//         if (err) {
-//           console.log(`some shit went wrong ${err}`);
-//           return;
-//         }
-  
-//         if (response.data.items[0]) {
-//           // We have found the video and the details
-//           console.log(`We found the video, now updating...`);
-//           //updateVideoTitle(response.data.items[0], auth);
-//           youtubeFunction()
-//         }
-//       }
-//     );
-// };
-
-
 
 app.get('/', (req, res) => res.send('Hello'))
 
