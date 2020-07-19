@@ -15,15 +15,16 @@ var SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl'];
 var TOKEN_DIR = __dirname + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'youtube_nodejs.json';
 
-fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-    if (err) {
-      console.log('Error loading client secret file: ' + err);
-      return;
-    }
-    // Authorize a client with the loaded credentials, then call the YouTube API.
-    authorize(JSON.parse(content), getChannel);
-}); 
-
+function startFunction(){
+    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+        if (err) {
+          console.log('Error loading client secret file: ' + err);
+          return;
+        }
+        // Authorize a client with the loaded credentials, then call the YouTube API.
+        authorize(JSON.parse(content), getChannel);
+    }); 
+}
 function authorize(credentials, callback) {
     var clientSecret = credentials.installed.client_secret;
     var clientId = credentials.installed.client_id;
@@ -129,6 +130,11 @@ function getChannel(auth) {
 }
 
 app.get('/', (req, res) => res.send('Hello'))
+
+app.lib.cron(event => {
+  startFunction()
+});
+
 
 const PORT=3000
 if(!process.env.DETA_RUNTIME){
