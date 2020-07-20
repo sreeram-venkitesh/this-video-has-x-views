@@ -3,7 +3,6 @@ const express = require('express')
 const readline = require('readline')
 const { google } = require('googleapis')
 const { App } = require("deta")
-const express = require('express')
 
 const app = App(express())
 
