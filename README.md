@@ -1,5 +1,5 @@
 # this-video-has-x-views
-## How to use the YouTube Data API to automatically update the title of a video with the number of views
+## How to automatically update the title of a video with the number of views using [YouTube Data API](https://developers.google.com/youtube/v3/docs/) and [Deta](https://deta.sh)
 
 ### [Link to YouTube video tutorial](https://www.youtube.com/watch?v=QwecvVvESVU)
 
